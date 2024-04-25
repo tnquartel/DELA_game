@@ -30,13 +30,14 @@ jobs:
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
           UNITY_SERIAL: ${{ secrets.UNITY_SERIAL }}
         with:
+          projectPath: DELA_game
           targetPlatform: WebGL
-       # Return License (Un-Comment if you're using a pro license)
+      # Return License (Un-Comment if you're using a pro license)
       - name: Return license
         uses: game-ci/unity-return-license@v1
         if: always()
-       # Output
+      # Output
       - uses: actions/upload-artifact@v2
         with:
-         name: Build
-         path: build
+          name: Build
+          path: DELA_game/build
