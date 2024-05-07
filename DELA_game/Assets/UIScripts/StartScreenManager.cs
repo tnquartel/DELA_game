@@ -4,16 +4,38 @@ using UnityEngine;
 
 public class StartScreenManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
+    public GameObject startPanel;
+    public GameObject whyInfoPanel;
+    public GameObject howInfoPanel;
 
+    public void HideAllPanels()
+    {
+        startPanel.SetActive(false);
+        whyInfoPanel.SetActive(false);
+        howInfoPanel.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void ShowStartPanel()
     {
+        HideAllPanels();
+        startPanel.SetActive(true);
+    }
 
+    public void ShowWhyInfoPanel()
+    {
+        HideAllPanels();
+        whyInfoPanel.SetActive(true);
+    }
+
+    public void ShowHowInfoPanel()
+    {
+        HideAllPanels();
+        howInfoPanel.SetActive(true);
+    }
+
+    void Start()
+    {
+        ShowStartPanel();
     }
 
     public void SavePlayerName(string playerName)
