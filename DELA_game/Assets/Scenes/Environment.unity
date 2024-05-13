@@ -42114,7 +42114,6 @@ Transform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 1327569913}
   - {fileID: 528976411}
   - {fileID: 751663679}
   - {fileID: 2025333948613918064}
