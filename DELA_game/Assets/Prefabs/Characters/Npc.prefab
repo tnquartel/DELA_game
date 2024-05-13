@@ -117,7 +117,7 @@ GameObject:
   - component: {fileID: 1343838349138901352}
   - component: {fileID: 3832763883862292998}
   - component: {fileID: 3253550500265271748}
-  - component: {fileID: 5912187463509839916}
+  - component: {fileID: 1708560083944262458}
   m_Layer: 0
   m_Name: Npc
   m_TagString: Untagged
@@ -215,7 +215,7 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5912187463509839916
+--- !u!114 &1708560083944262458
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -227,6 +227,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fce272e41fb75544dbf2516e4b4a7089, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactText: {fileID: 0}
+  hoi: {fileID: 0}
 --- !u!1 &2535995573554931012
 GameObject:
   m_ObjectHideFlags: 0
