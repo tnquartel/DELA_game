@@ -24063,6 +24063,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Npc (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 1708560083944262458, guid: 3881f9d3bb513074bab53a96ddd5d68f, type: 3}
+      propertyPath: zoomEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 702747696}
+    - target: {fileID: 1708560083944262458, guid: 3881f9d3bb513074bab53a96ddd5d68f, type: 3}
+      propertyPath: resetCamera.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 702747696}
     - target: {fileID: 5912187463509839916, guid: 3881f9d3bb513074bab53a96ddd5d68f, type: 3}
       propertyPath: interactText
       value: Interact with Npc
@@ -58548,6 +58556,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Npc (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 1708560083944262458, guid: 3881f9d3bb513074bab53a96ddd5d68f, type: 3}
+      propertyPath: zoomEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 702747696}
+    - target: {fileID: 1708560083944262458, guid: 3881f9d3bb513074bab53a96ddd5d68f, type: 3}
+      propertyPath: resetCamera.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 702747696}
     - target: {fileID: 5912187463509839916, guid: 3881f9d3bb513074bab53a96ddd5d68f, type: 3}
       propertyPath: interactText
       value: Interact with Npc2
@@ -62510,6 +62526,26 @@ PrefabInstance:
     - target: {fileID: 1459715255642589598, guid: 3881f9d3bb513074bab53a96ddd5d68f, type: 3}
       propertyPath: m_Name
       value: Npc (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1708560083944262458, guid: 3881f9d3bb513074bab53a96ddd5d68f, type: 3}
+      propertyPath: resetCamera.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1708560083944262458, guid: 3881f9d3bb513074bab53a96ddd5d68f, type: 3}
+      propertyPath: zoomEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 702747696}
+    - target: {fileID: 1708560083944262458, guid: 3881f9d3bb513074bab53a96ddd5d68f, type: 3}
+      propertyPath: resetCamera.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 702747696}
+    - target: {fileID: 1708560083944262458, guid: 3881f9d3bb513074bab53a96ddd5d68f, type: 3}
+      propertyPath: resetCamera.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ResetCamera
+      objectReference: {fileID: 0}
+    - target: {fileID: 1708560083944262458, guid: 3881f9d3bb513074bab53a96ddd5d68f, type: 3}
+      propertyPath: resetCamera.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 5912187463509839916, guid: 3881f9d3bb513074bab53a96ddd5d68f, type: 3}
       propertyPath: interactText
