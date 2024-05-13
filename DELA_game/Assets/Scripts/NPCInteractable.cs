@@ -43,6 +43,8 @@ public class NPCInteractable : MonoBehaviour
 
     private void TogglePlayerComponents(bool isEnabled)
     {
+        foreach (Renderer r in player.GetComponentsInChildren<Renderer>())
+            r.enabled = isEnabled;
         playerMovement.enabled = isEnabled;
         playerRenderer.enabled = isEnabled;
         playerInteract.enabled = isEnabled;
