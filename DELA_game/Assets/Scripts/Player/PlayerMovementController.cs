@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();  // Get the Rigidbody component attached to this GameObject
     }
 
-    void FixedUpdate()
+    void Update()
     {
         float moveHorizontal = Input.GetAxis("Horizontal");  // Get input from horizontal axis (A/D, Left/Right Arrow)
         float moveVertical = Input.GetAxis("Vertical");  // Get input from vertical axis (W/S, Up/Down Arrow)

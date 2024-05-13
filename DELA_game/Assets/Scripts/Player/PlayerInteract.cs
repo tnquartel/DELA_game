@@ -5,35 +5,26 @@ using UnityEngine.Events;
 
 public class PlayerInteract : MonoBehaviour
 {
-    private bool isInteracting;
-    public UnityEvent interactEvent;
+    private float interactRange = 2f;
 
     // Update is called once per frame
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.E))
         {
-            float interactRange = 2f;
             Collider[] colliderArray = Physics.OverlapSphere(transform.position, interactRange);
 
             foreach(Collider collider in colliderArray)
             {
                 if(collider.TryGetComponent(out NPCInteractable npcInteractable)){
-                    isInteracting = true;
-                    interactEvent.Invoke();
                     npcInteractable.Interact(collider.gameObject);
                 }
             }
-        }else if(Input.GetKeyDown(KeyCode.Escape)) 
-        {
-            isInteracting = false;
-            interactEvent.Invoke();
         }
     }
 
     public NPCInteractable GetInteractable()
     {
-        float interactRange = 2f;
         Collider[] colliderArray = Physics.OverlapSphere(transform.position, interactRange);
 
         foreach(Collider collider in colliderArray)
@@ -44,9 +35,5 @@ public class PlayerInteract : MonoBehaviour
         }
 
         return null;
-    }
-
-    public bool getIsInteracting(){
-        return isInteracting;       
     }
 }

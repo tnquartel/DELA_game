@@ -25,10 +25,4 @@ public class PlayerInteractUI : MonoBehaviour
     {
         container.SetActive(false);
     }
-
-    public void changeInteractBtn()
-    {
-        if(playerInteract.getIsInteracting()) keyText.text = "Esc";
-        else keyText.text = "E";
-    }
 }
