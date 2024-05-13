@@ -242,7 +242,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 50, y: 10}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &353482239
@@ -1375,6 +1375,7 @@ GameObject:
   - component: {fileID: 1327569913}
   - component: {fileID: 1327569912}
   - component: {fileID: 1327569911}
+  - component: {fileID: 1327569914}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1456,6 +1457,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 33.56, y: 0, z: 0}
+--- !u!114 &1327569914
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1327569910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc027f785b3aeff4cbe30aee1a2164a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1682095575}
 --- !u!1 &1349285964
 GameObject:
   m_ObjectHideFlags: 0
@@ -1525,21 +1539,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88c9f37fba6a24643833a10446386c68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1349285966}
-        m_TargetAssemblyTypeName: PlayerInteractUI, Assembly-CSharp
-        m_MethodName: changeInteractBtn
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &1682095577
 MonoBehaviour:
   m_ObjectHideFlags: 0
