@@ -27,7 +27,7 @@ public class NPCInteractable : MonoBehaviour
         cameraTransform = Camera.main.transform;
         originalCameraPosition = cameraTransform.position;
         originalCameraRotation = cameraTransform.rotation;
-        interactText = (TextMeshProUGUI)FindObjectOfType(typeof(TextMeshProUGUI));
+        interactText = GameObject.Find("InteractText").GetComponent<TextMeshProUGUI>();
     }
 
     public void Update()
