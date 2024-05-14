@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
@@ -8,6 +9,10 @@ public class UIManager : MonoBehaviour
     public GameObject whyInfoPanel;
     public GameObject howInfoPanel;
     public GameObject endPanel;
+
+    public Text playerNameText;
+
+    public InputField playerNameInput;
 
     public void HideAllPanels()
     {
@@ -38,6 +43,7 @@ public class UIManager : MonoBehaviour
     public void ShowEndPanel()
     {
         HideAllPanels();
+        playerNameText.text = "Goed gedaan, " + PlayerPrefs.GetString("PlayerName") + "!";
         endPanel.SetActive(true);
     }
 
@@ -46,9 +52,10 @@ public class UIManager : MonoBehaviour
         ShowStartPanel();
     }
 
-    public void SavePlayerName(string playerName)
+    public void StartGame()
     {
-        PlayerPrefs.SetString("PlayerName", playerName);
+        PlayerPrefs.SetString("PlayerName", playerNameInput.text);
+        ShowEndPanel();
     }
 
     public void PlayAgain()
