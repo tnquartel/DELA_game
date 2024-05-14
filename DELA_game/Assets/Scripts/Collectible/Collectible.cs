@@ -1,9 +1,15 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Collectible : MonoBehaviour
 {
+    public CollectibleType type;
+    public String text;
+    public CollectibleManager collectibleManager;
+
     public float spinSpeed = 25f; // Speed of spinning
     public float bounceHeight = 0.1f; // Max height of bouncing
     public float bounceSpeed = 1.5f; // Speed of bouncing
@@ -26,4 +32,32 @@ public class Collectible : MonoBehaviour
         // Update the object's position
         transform.position = startPos + new Vector3(0f, bounce, 0f);
     }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            // Play a pickup sound
+            AudioManager.Instance.PlaySound("PickupCollectibleSound");
+
+            // Add collectible to the collectible manager list
+            if (type == CollectibleType.Response)
+            {
+                collectibleManager.addResponse(this);
+            }
+            else if (type == CollectibleType.Tip)
+            {
+                collectibleManager.addTip(this);
+            }
+
+            // Destroy the collectible
+            gameObject.SetActive(false);
+        }
+    }
+}
+
+public enum CollectibleType
+{
+    Response,
+    Tip
 }
