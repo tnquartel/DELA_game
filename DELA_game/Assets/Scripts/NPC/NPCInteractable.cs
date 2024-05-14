@@ -17,6 +17,7 @@ public class NPCInteractable : MonoBehaviour
     private PlayerMovement playerMovement;
     private Renderer playerRenderer;
     private PlayerInteract playerInteract;
+    public Dialogue dialogue;
 
     void Start()
     {
@@ -34,20 +35,29 @@ public class NPCInteractable : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.E) && isInteracting && !isZooming)
         {
-            ResetCamera();
-            TogglePlayerComponents(true);
+            StopInteraction();
         }
     }
 
     public void Interact(GameObject npc)
     {
+        Debug.Log("Interacting!");
         if(isZooming) return;
         TogglePlayerComponents(false);
         ZoomOnNPC(npc.transform);
+        TriggerDialogue();
+    }
+
+    public void StopInteraction()
+    {
+        ResetCamera();
+        TogglePlayerComponents(true);
+        FindObjectOfType<DialogueManager>().ActivateDialogueUI(false);
     }
 
     private void TogglePlayerComponents(bool isEnabled)
     {
+        Debug.Log(isEnabled);
         foreach (Renderer r in player.GetComponentsInChildren<Renderer>())
             r.enabled = isEnabled;
         playerMovement.enabled = isEnabled;
@@ -95,5 +105,9 @@ public class NPCInteractable : MonoBehaviour
     public string GetInteractText()
     {
          return isInteracting ? "Stop Interacting" : "Interact";
+    }
+
+    private void TriggerDialogue(){
+        FindObjectOfType<DialogueManager>().StartDialogue(dialogue);
     }
 }
