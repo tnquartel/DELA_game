@@ -27,10 +27,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        
         isGrounded = Physics.CheckSphere(transform.position, .1f, 1);
         anim.SetBool("IsGrounded", isGrounded);
 
-        if(isGrounded && velocity.y < 0) 
+        if (isGrounded && velocity.y < 0)
         {
             velocity.y = -1;
         }
@@ -38,7 +39,7 @@ public class PlayerMovement : MonoBehaviour
         movement = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         Vector3 direction = new Vector3(movement.x, 0, movement.y).normalized;
 
-        if(direction.magnitude >= 0.1f)
+        if (direction.magnitude >= 0.1f)
         {
             float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
@@ -48,13 +49,14 @@ public class PlayerMovement : MonoBehaviour
             controller.Move(moveDirection.normalized * moveSpeed * Time.deltaTime);
 
             anim.SetFloat("Speed", 1);
-        } else
+        }
+        else
         {
             anim.SetFloat("Speed", 0);
         }
 
         //jumping
-        if(Input.GetButtonDown("Jump") && isGrounded)
+        if (Input.GetButtonDown("Jump") && isGrounded)
         {
             velocity.y = Mathf.Sqrt((jumpHeight * 10) * -2f * gravity);
         }
@@ -63,7 +65,12 @@ public class PlayerMovement : MonoBehaviour
         {
             velocity.y += (gravity * 10) * Time.deltaTime;
         }
-        
+
         controller.Move(velocity * Time.deltaTime);
+        if (gameObject.transform.position.y < -2)
+        {
+            gameObject.transform.position = new Vector3(0, 2, 0);
+            Debug.Log("PlayerController: Update PLAYER");
+        }
     }
 }

@@ -24,5 +24,7 @@ public class PlayerController : MonoBehaviour
     {
         rb.isKinematic = true;
     }
+
+    
 }
 
