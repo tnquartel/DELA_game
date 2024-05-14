@@ -55,7 +55,7 @@ public class UIManager : MonoBehaviour
     public void StartGame()
     {
         PlayerPrefs.SetString("PlayerName", playerNameInput.text);
-        ShowEndPanel();
+        ShowHowInfoPanel();
     }
 
     public void PlayAgain()
