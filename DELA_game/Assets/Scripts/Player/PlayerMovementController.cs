@@ -101,6 +101,12 @@ public class PlayerMovement : MonoBehaviour
 
             controller.Move(velocity * Time.deltaTime);
             anim.SetBool("HasJumped", hasJumped);
+
+            if(gameObject.transform.position.y < -2)
+            {
+                gameObject.transform.position = new Vector3(0, 2, 0);
+            }
+
         }
     }
 }
