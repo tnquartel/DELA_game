@@ -227,8 +227,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fce272e41fb75544dbf2516e4b4a7089, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactText: {fileID: 0}
-  hoi: {fileID: 0}
+  zoomEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: CameraController, Assembly-CSharp
+        m_MethodName: ZoomOnNPC
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 6806074029467122718}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  resetCamera:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: CameraController, Assembly-CSharp
+        m_MethodName: ResetCamera
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2535995573554931012
 GameObject:
   m_ObjectHideFlags: 0
