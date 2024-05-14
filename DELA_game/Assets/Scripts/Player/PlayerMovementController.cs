@@ -17,18 +17,27 @@ public class PlayerMovement : MonoBehaviour
     public float jumpHeight;
     public float gravity;
     bool isGrounded;
+    bool hasJumped = false;
     Vector3 velocity;
 
     private void Start()
     {
         controller = GetComponent<CharacterController>();
         anim = GetComponentInChildren<Animator>();
+        anim.SetBool("HasJumped", hasJumped);
     }
 
     private void Update()
     {
         isGrounded = Physics.CheckSphere(transform.position, .1f, 1);
         anim.SetBool("IsGrounded", isGrounded);
+        if (isGrounded)
+        {
+            hasJumped = false;
+        }
+
+
+        
 
         if(isGrounded && velocity.y < 0) 
         {
@@ -57,6 +66,7 @@ public class PlayerMovement : MonoBehaviour
         if(Input.GetButtonDown("Jump") && isGrounded)
         {
             velocity.y = Mathf.Sqrt((jumpHeight * 10) * -2f * gravity);
+            hasJumped = true;
         }
 
         if (velocity.y > -20)
@@ -65,5 +75,6 @@ public class PlayerMovement : MonoBehaviour
         }
         
         controller.Move(velocity * Time.deltaTime);
+        anim.SetBool("HasJumped", hasJumped);
     }
 }
