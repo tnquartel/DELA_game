@@ -12,6 +12,7 @@ public class NPCInteractable : MonoBehaviour
 
     public UnityEvent zoomEvent;
     public UnityEvent resetCamera;
+    public UnityEvent setInvisible;
 
     private bool isInteracting = false;
     private bool isZooming = false;
@@ -48,6 +49,7 @@ public class NPCInteractable : MonoBehaviour
 
     private void TogglePlayerComponents(bool isEnabled)
     {
+        setInvisible.Invoke();
         foreach (Renderer r in player.GetComponentsInChildren<Renderer>())
             r.enabled = isEnabled;
         playerMovement.enabled = isEnabled;
