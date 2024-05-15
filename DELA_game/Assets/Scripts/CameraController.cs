@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour
@@ -7,6 +8,8 @@ public class CameraController : MonoBehaviour
 
     public GameObject player;
 
+    private Vector3 targetPosition;
+    private Quaternion targetRotation;
     private Vector3 offset;
     private Quaternion startRotation;
     private bool isZooming = false;
@@ -32,8 +35,8 @@ public class CameraController : MonoBehaviour
     public void ZoomOnNPC(Transform npcTransform)
     {
         isZoomedIn = true;
-        Vector3 targetPosition = npcTransform.position + npcTransform.forward * 3f + Vector3.up * 1.5f;  // Position camera slightly above and behind the NPC
-        Quaternion targetRotation = Quaternion.LookRotation(npcTransform.position - targetPosition);
+        targetPosition = npcTransform.position + npcTransform.forward * 3f + Vector3.up * 1.5f;  // Position camera slightly above and behind the NPC
+        targetRotation = Quaternion.LookRotation(npcTransform.position - targetPosition);
         StartCoroutine(SmoothZoom(targetPosition, targetRotation));
     }
 
@@ -43,19 +46,20 @@ public class CameraController : MonoBehaviour
         isZooming = true;
 
         float startTime = Time.time;
-        while (Time.time - startTime < 1.5f)
+        while (Vector3.Distance(transform.position, targetPosition) > 0.5)
         {
             transform.position = Vector3.Lerp(transform.position, targetPosition, 5f * Time.deltaTime);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 5f * Time.deltaTime);
             yield return null;
         }
-
         isZooming = false;
     }
 
     public void ResetCamera()
     {
-        StartCoroutine(SmoothZoom(player.transform.position + offset, startRotation));
+        // Ensure the final position and rotation are set precisely
+        transform.position = player.transform.position + offset;
+        transform.rotation = startRotation;
         isZoomedIn = false;
     }
 }
