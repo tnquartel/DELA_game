@@ -3,85 +3,96 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DialogueManager : MonoBehaviour
 {
-    private Queue<string> senenteces; 
+    private Queue<string> sentences; 
     public new TextMeshProUGUI name;
     public TextMeshProUGUI dialogueText;
     public GameObject npcUIContainer;
     public GameObject playerUIContainer;
-    private int turnIndex = 0;
     private List<string> playerResponses = new List<string>(); 
+    public Transform playerResponsesContainer;
+    public GameObject responseButtonPrefab;
+    public TMP_InputField playerResponseInputField;
 
     void Start()
     {
-        ActivateDialogueUI(false);
+        npcUIContainer.SetActive(false);
         playerUIContainer.SetActive(false);
-        senenteces = new Queue<string>();
+        sentences = new Queue<string>();
     }
 
     public void StartDialogue(Dialogue dialogue)
     {
-        ActivateDialogueUI(true);
+        npcUIContainer.SetActive(true);
         name.text = dialogue.name;
-        senenteces.Clear();
+        sentences.Clear();
 
         foreach(string senentece in dialogue.sentences){
-            senenteces.Enqueue(senentece);
+            sentences.Enqueue(senentece);
         }
 
-        turnIndex = 0;
-        if(senenteces.Count == 0){
+        if(sentences.Count == 0){
             EndDialogue();
             return;
         }
         
-        string sentence = senenteces.Dequeue();
-        dialogueText.text = sentence;
+        dialogueText.text = sentences.Dequeue();
     }
 
     public void DisplayNextSentence()
     {
-        if(senenteces.Count == 0){
+        if(sentences.Count == 0){
             EndDialogue();
             return;
         }
-
-        if(turnIndex == 0){
-            string sentence = senenteces.Dequeue();
-            dialogueText.text = sentence;
-            turnIndex = 1;
-            ActivateDialogueUI(false);
-
-            playerResponses.Clear();
-            playerResponses.Add("Response 1");
-            playerResponses.Add("Response 2");
-            playerResponses.Add("Response 3");
-
-            DisplayPlayerResponses();
-        }
-
+        dialogueText.text = sentences.Dequeue();
     }
 
-    private void DisplayPlayerResponses()
+    public void DisplayPlayerResponses()
     {
+        playerResponseInputField.text = "";
+        npcUIContainer.SetActive(false);
         playerUIContainer.SetActive(true);
+        playerResponses.Clear();
+        playerResponses.Add("Response 1");
+        playerResponses.Add("Response 2");
+        playerResponses.Add("Response 3");
 
+        foreach (Transform child in playerResponsesContainer)
+        {
+            Destroy(child.gameObject);
+        }
+
+        // Create buttons for each response
+        foreach (string response in playerResponses)
+        {
+            GameObject responseWrapper = Instantiate(responseButtonPrefab, playerResponsesContainer);
+            responseWrapper.GetComponentInChildren<TextMeshProUGUI>().text = response;
+
+            // Add a listener for the button click (optional)
+            responseWrapper.GetComponentInChildren<Button>().onClick.AddListener(() => fillInputField(response));
+        }
+    }
+
+    private void fillInputField(string response)
+    {
+        playerResponseInputField.text = response;
     }
 
     public void OnResponseSelected()
     {
-        Debug.Log("Response selected");
+        if(string.IsNullOrEmpty(playerResponseInputField.text)) return;
+        npcUIContainer.SetActive(true);
         playerUIContainer.SetActive(false);
-        turnIndex = 0;
-        ActivateDialogueUI(true);
         DisplayNextSentence();
     }
 
     private void EndDialogue()
     {
-        ActivateDialogueUI(false);
+        npcUIContainer.SetActive(false);
         FindObjectOfType<NPCInteractable>().StopInteraction();
     }
 
