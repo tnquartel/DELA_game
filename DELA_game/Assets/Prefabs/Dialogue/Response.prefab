@@ -222,7 +222,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Resposne text
+  m_text: 'Response text
 
 '
   m_isRightToLeft: 0
