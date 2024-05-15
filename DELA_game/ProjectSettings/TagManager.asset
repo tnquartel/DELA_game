@@ -5,6 +5,13 @@ TagManager:
   serializedVersion: 2
   tags:
   - InteractText
+  - FootballSector
+  - LakeSector
+  - MountainSector
+  - WaterTowerSector
+  - StarterSector
+  - ForestHutSector
+  - SectorText
   layers:
   - Default
   - TransparentFX
