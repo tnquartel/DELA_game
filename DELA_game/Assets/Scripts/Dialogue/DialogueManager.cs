@@ -9,11 +9,15 @@ public class DialogueManager : MonoBehaviour
     private Queue<string> senenteces; 
     public new TextMeshProUGUI name;
     public TextMeshProUGUI dialogueText;
-    public GameObject dialogueUI;
+    public GameObject npcUIContainer;
+    public GameObject playerUIContainer;
+    private int turnIndex = 0;
+    private List<string> playerResponses = new List<string>(); 
 
     void Start()
     {
         ActivateDialogueUI(false);
+        playerUIContainer.SetActive(false);
         senenteces = new Queue<string>();
     }
 
@@ -27,29 +31,62 @@ public class DialogueManager : MonoBehaviour
             senenteces.Enqueue(senentece);
         }
 
-        DisplayNextSentence();
+        turnIndex = 0;
+        if(senenteces.Count == 0){
+            EndDialogue();
+            return;
+        }
+        
+        string sentence = senenteces.Dequeue();
+        dialogueText.text = sentence;
     }
 
     public void DisplayNextSentence()
     {
         if(senenteces.Count == 0){
-            StartCoroutine(EndDialogue());
+            EndDialogue();
             return;
         }
 
-        string sentence = senenteces.Dequeue();
-        dialogueText.text = sentence;
+        if(turnIndex == 0){
+            string sentence = senenteces.Dequeue();
+            dialogueText.text = sentence;
+            turnIndex = 1;
+            ActivateDialogueUI(false);
+
+            playerResponses.Clear();
+            playerResponses.Add("Response 1");
+            playerResponses.Add("Response 2");
+            playerResponses.Add("Response 3");
+
+            DisplayPlayerResponses();
+        }
+
     }
 
-    private IEnumerator EndDialogue()
+    private void DisplayPlayerResponses()
+    {
+        playerUIContainer.SetActive(true);
+
+    }
+
+    public void OnResponseSelected()
+    {
+        Debug.Log("Response selected");
+        playerUIContainer.SetActive(false);
+        turnIndex = 0;
+        ActivateDialogueUI(true);
+        DisplayNextSentence();
+    }
+
+    private void EndDialogue()
     {
         ActivateDialogueUI(false);
-        yield return new WaitForSeconds(2f);
         FindObjectOfType<NPCInteractable>().StopInteraction();
     }
 
     public void ActivateDialogueUI(bool activate)
     {
-        dialogueUI.SetActive(activate);
+        npcUIContainer.SetActive(activate);
     }
 }
