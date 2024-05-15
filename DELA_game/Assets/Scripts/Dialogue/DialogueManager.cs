@@ -99,5 +99,6 @@ public class DialogueManager : MonoBehaviour
     public void ActivateDialogueUI(bool activate)
     {
         npcUIContainer.SetActive(activate);
+        playerUIContainer.SetActive(activate);
     }
 }
