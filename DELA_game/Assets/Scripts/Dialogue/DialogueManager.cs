@@ -12,10 +12,11 @@ public class DialogueManager : MonoBehaviour
     public TextMeshProUGUI dialogueText;
     public GameObject npcUIContainer;
     public GameObject playerUIContainer;
-    private List<string> playerResponses = new List<string>(); 
+    private List<Collectible> playerResponses;
     public Transform playerResponsesContainer;
     public GameObject responseButtonPrefab;
     public TMP_InputField playerResponseInputField;
+    
 
     void Start()
     {
@@ -56,10 +57,7 @@ public class DialogueManager : MonoBehaviour
         playerResponseInputField.text = "";
         npcUIContainer.SetActive(false);
         playerUIContainer.SetActive(true);
-        playerResponses.Clear();
-        playerResponses.Add("Response 1");
-        playerResponses.Add("Response 2");
-        playerResponses.Add("Response 3");
+        playerResponses = FindObjectOfType<CollectibleManager>().Responses;
 
         foreach (Transform child in playerResponsesContainer)
         {
@@ -67,13 +65,13 @@ public class DialogueManager : MonoBehaviour
         }
 
         // Create buttons for each response
-        foreach (string response in playerResponses)
+        foreach (Collectible response in playerResponses)
         {
             GameObject responseWrapper = Instantiate(responseButtonPrefab, playerResponsesContainer);
-            responseWrapper.GetComponentInChildren<TextMeshProUGUI>().text = response;
+            responseWrapper.GetComponentInChildren<TextMeshProUGUI>().text = response.text;
 
             // Add a listener for the button click (optional)
-            responseWrapper.GetComponentInChildren<Button>().onClick.AddListener(() => fillInputField(response));
+            responseWrapper.GetComponentInChildren<Button>().onClick.AddListener(() => fillInputField(response.text));
         }
     }
 
