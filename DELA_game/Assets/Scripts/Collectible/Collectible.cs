@@ -51,6 +51,8 @@ public class Collectible : MonoBehaviour
                 collectibleManager.addTip(this);
             }
 
+            collectibleManager.UpdateCollectableCanvas();
+
             // Destroy the collectible
             gameObject.SetActive(false);
         }
