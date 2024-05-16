@@ -3,11 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
+public class DialogueSentence
+{
+    [TextArea(3, 10)]
+    public string sentence;
+    public Collectible answer;
+}
+
+[System.Serializable]
 public class Dialogue
 {
     public string name;
-
-    [TextArea(3, 10)]
-    public string[] sentences;
-    public string[] responses {get; private set;} 
+    public DialogueSentence[] sentences;
 }

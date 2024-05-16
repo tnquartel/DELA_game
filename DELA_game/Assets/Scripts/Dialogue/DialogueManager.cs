@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class DialogueManager : MonoBehaviour
 {
-    private Queue<string> sentences; 
+    private Queue<DialogueSentence> sentences; 
     public new TextMeshProUGUI name;
     public TextMeshProUGUI dialogueText;
     public GameObject npcUIContainer;
@@ -16,31 +16,31 @@ public class DialogueManager : MonoBehaviour
     public Transform playerResponsesContainer;
     public GameObject responseButtonPrefab;
     public TMP_InputField playerResponseInputField;
+    private List<Collectible> tempPlayerResponses;
+    private Collectible selectedResponse;
+    private DialogueSentence currentSentence;
     
 
     void Start()
     {
         npcUIContainer.SetActive(false);
         playerUIContainer.SetActive(false);
-        sentences = new Queue<string>();
+        sentences = new Queue<DialogueSentence>();
     }
 
     public void StartDialogue(Dialogue dialogue)
     {
+        playerResponses = FindObjectOfType<CollectibleManager>().GetCollectible();
+        tempPlayerResponses = playerResponses;
         npcUIContainer.SetActive(true);
         name.text = dialogue.name;
         sentences.Clear();
 
-        foreach(string senentece in dialogue.sentences){
+        foreach(DialogueSentence senentece in dialogue.sentences){
             sentences.Enqueue(senentece);
         }
 
-        if(sentences.Count == 0){
-            EndDialogue();
-            return;
-        }
-        
-        dialogueText.text = sentences.Dequeue();
+        DisplayNextSentence();
     }
 
     public void DisplayNextSentence()
@@ -49,7 +49,8 @@ public class DialogueManager : MonoBehaviour
             EndDialogue();
             return;
         }
-        dialogueText.text = sentences.Dequeue();
+        currentSentence = sentences.Dequeue();
+        dialogueText.text = currentSentence.sentence;
     }
 
     public void DisplayPlayerResponses()
@@ -57,7 +58,6 @@ public class DialogueManager : MonoBehaviour
         playerResponseInputField.text = "";
         npcUIContainer.SetActive(false);
         playerUIContainer.SetActive(true);
-        playerResponses = FindObjectOfType<CollectibleManager>().Responses;
 
         foreach (Transform child in playerResponsesContainer)
         {
@@ -65,33 +65,43 @@ public class DialogueManager : MonoBehaviour
         }
 
         // Create buttons for each response
-        foreach (Collectible response in playerResponses)
+        foreach (Collectible response in tempPlayerResponses)
         {
             GameObject responseWrapper = Instantiate(responseButtonPrefab, playerResponsesContainer);
             responseWrapper.GetComponentInChildren<TextMeshProUGUI>().text = response.text;
 
             // Add a listener for the button click (optional)
-            responseWrapper.GetComponentInChildren<Button>().onClick.AddListener(() => fillInputField(response.text));
+            responseWrapper.GetComponentInChildren<Button>().onClick.AddListener(() => fillInputField(response));
         }
     }
 
-    private void fillInputField(string response)
+    private void fillInputField(Collectible response)
     {
-        playerResponseInputField.text = response;
+        selectedResponse = response;
+        playerResponseInputField.text = response.text;
     }
 
     public void OnResponseSelected()
     {
         if(string.IsNullOrEmpty(playerResponseInputField.text)) return;
+        tempPlayerResponses.Remove(selectedResponse);
         npcUIContainer.SetActive(true);
         playerUIContainer.SetActive(false);
+        CheckResponse();
         DisplayNextSentence();
+    }
+
+    private void CheckResponse()
+    {
+        if(currentSentence.answer == selectedResponse) Debug.Log("Good!");
+        else Debug.Log("Bad!");
     }
 
     private void EndDialogue()
     {
         npcUIContainer.SetActive(false);
         FindObjectOfType<NPCInteractable>().StopInteraction();
+        playerResponses = tempPlayerResponses;
     }
 
     public void ActivateDialogueUI(bool activate)

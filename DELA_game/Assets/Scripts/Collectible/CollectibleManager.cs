@@ -23,14 +23,11 @@ public class CollectibleManager : MonoBehaviour
 
     public void UpdateCollectableCanvas() {
         string currentSector = sectorManager.CurrentSector;
-        Debug.Log(currentSector);
-        Debug.Log("Filter");
         int collectiblesCollected = 0;
 
         switch (currentSector)
             {
                 case "Knusse Kampeerplaats":
-                    Debug.Log("Camp");
                     collectiblesCollected = Responses.FindAll(response => response.CompareTag("CollectibleStarter")).Count;
                     collectibleText.text = collectiblesCollected + "/1 Responses Collected";
                     return;
@@ -51,8 +48,36 @@ public class CollectibleManager : MonoBehaviour
                     break;
             }
 
-            Debug.Log(collectiblesCollected);
-
             collectibleText.text = collectiblesCollected + "/4 Responses Collected";
         }
-    }
+
+    public List<Collectible> GetCollectible() {
+        string currentSector = sectorManager.CurrentSector;
+        var collectibleList = new List<Collectible>(); 
+
+        switch (currentSector)
+            {
+                case "Knusse Kampeerplaats":
+                    collectibleList = Responses.FindAll(response => response.CompareTag("CollectibleStarter"));
+                    break;
+                case "Matige Meren":
+                    collectibleList = Responses.FindAll(response => response.CompareTag("CollectibleLake"));
+                    break;
+                case "Diepe Doelen":
+                    collectibleList = Responses.FindAll(response => response.CompareTag("CollectibleFootball"));
+                    break;
+                case "Woeste Wateren":
+                    collectibleList = Responses.FindAll(response => response.CompareTag("CollectibleWaterTower"));
+                    break;
+                case "Boze Bergen":
+                    collectibleList = Responses.FindAll(response => response.CompareTag("CollectibleMountain"));
+                    break;
+                case "Wazige Woud":
+                    collectibleList = Responses.FindAll(response => response.CompareTag("CollectibleForrestHut"));
+                    break;
+            }
+
+            return collectibleList;
+        }
+
+}
