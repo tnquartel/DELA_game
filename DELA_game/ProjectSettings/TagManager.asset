@@ -12,6 +12,12 @@ TagManager:
   - StarterSector
   - ForestHutSector
   - SectorText
+  - CollectibleFootball
+  - CollectibleLake
+  - CollectibleMountain
+  - CollectibleWaterTower
+  - CollectibleStarter
+  - CollectibleForrestHut
   layers:
   - Default
   - TransparentFX
