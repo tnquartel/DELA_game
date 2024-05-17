@@ -19,6 +19,8 @@ public class DialogueManager : MonoBehaviour
     private List<Collectible> tempPlayerResponses;
     private Collectible selectedResponse;
     private DialogueSentence currentSentence;
+    private ScoreManager scoreManager;
+    public SectorManager sectorManager;
     
 
     void Start()
@@ -26,6 +28,7 @@ public class DialogueManager : MonoBehaviour
         npcUIContainer.SetActive(false);
         playerUIContainer.SetActive(false);
         sentences = new Queue<DialogueSentence>();
+        scoreManager = FindObjectOfType<ScoreManager>();
     }
 
     public void StartDialogue(Dialogue dialogue)
@@ -93,7 +96,30 @@ public class DialogueManager : MonoBehaviour
 
     private void CheckResponse()
     {
-        if(currentSentence.answer == selectedResponse) Debug.Log("Good!");
+        if(currentSentence.answer == selectedResponse){
+        string currentSector = sectorManager.CurrentSector;
+
+        switch (currentSector)
+            {
+                case "Matige Meren":
+                    scoreManager.AddScore("NPCLake");
+                    break;
+                case "Diepe Doelen":
+                    scoreManager.AddScore("NPCFootball");
+                    break;
+                case "Woeste Wateren":
+                    scoreManager.AddScore("NPCWaterTower");
+                    break;
+                case "Boze Bergen":
+                    scoreManager.AddScore("NPCMines");
+                    break;
+                case "Wazige Woud":
+                    scoreManager.AddScore("NPCForrestHut");
+                    break;
+            }
+
+            Debug.Log("Good!");
+        }
         else Debug.Log("Bad!");
     }
 
