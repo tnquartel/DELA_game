@@ -17,12 +17,30 @@ public class NPCFeedbackManager : MonoBehaviour
     {
         nameText.text = npc.dialogue.name;
         spriteObject.sprite = sprite;
-        SetScore(0);
+
+        System.Random random = new System.Random();
+        SetScore(random.Next(0, 3));
     }
 
     public void SetScore(int score)
     {
-        scoreText.text = "Score: " + score.ToString();
+        string scoreString = "";
+        switch (score)
+        {
+            case 0:
+                scoreText.color = Color.red;
+                scoreString = "Helaas.";
+                break;
+            case 1:
+                scoreText.color = Color.yellow;
+                scoreString = "Dit kan beter.";
+                break;
+            case 2:
+                scoreText.color = Color.green;
+                scoreString = "Super!";
+                break;
+        }
+        scoreText.text = scoreString;
     }
 
     public void SetFeedback(string feedback)
