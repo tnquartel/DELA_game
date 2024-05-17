@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,6 +23,7 @@ public class DialogueManager : MonoBehaviour
     private DialogueSentence currentSentence;
     private ScoreManager scoreManager;
     public SectorManager sectorManager;
+    public GameObject[] npcs; 
     
 
     void Start()
@@ -29,6 +32,7 @@ public class DialogueManager : MonoBehaviour
         playerUIContainer.SetActive(false);
         sentences = new Queue<DialogueSentence>();
         scoreManager = FindObjectOfType<ScoreManager>();
+        npcs = GameObject.FindGameObjectsWithTag("NPC");
     }
 
     public void StartDialogue(Dialogue dialogue)
@@ -118,9 +122,29 @@ public class DialogueManager : MonoBehaviour
                     break;
             }
 
+            foreach (GameObject npc in npcs)
+            {
+                npc.transform.Find("HappyParticles").gameObject.SetActive(true);
+                StartCoroutine(StopParticles(npc, "HappyParticles"));
+            }
+            
             Debug.Log("Good!");
         }
-        else Debug.Log("Bad!");
+        else {
+            foreach (GameObject npc in npcs)
+            {
+                npc.transform.Find("SadParticles").gameObject.SetActive(true);
+                StartCoroutine(StopParticles(npc, "SadParticles"));
+            }
+
+            Debug.Log("Bad!");
+        }
+    }
+
+    private IEnumerator StopParticles(GameObject npc, string particles)
+    {
+        yield return new WaitForSeconds(3);
+        npc.transform.Find(particles).gameObject.SetActive(false);
     }
 
     private void EndDialogue()
