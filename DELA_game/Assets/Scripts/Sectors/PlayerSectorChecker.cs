@@ -26,26 +26,27 @@ public class PlayerSectorChecker : MonoBehaviour
         {
 
             string tag = hit.collider.tag;
+            
 
             switch (tag)
             {
                 case "StarterSector":
-                    sectorManager.sectorText.text = "Knusse Kampeerplaats";
+                    sectorManager.CurrentSector = "Knusse Kampeerplaats";
                     break;
                 case "LakeSector":
-                    sectorManager.sectorText.text = "Matige Meren";
+                    sectorManager.CurrentSector = "Matige Meren";
                     break;
                 case "FootballSector":
-                    sectorManager.sectorText.text = "Diepe Doelen";
+                    sectorManager.CurrentSector = "Diepe Doelen";
                     break;
                 case "WaterTowerSector":
-                    sectorManager.sectorText.text = "Woeste Wateren";
+                    sectorManager.CurrentSector = "Woeste Wateren";
                     break;
                 case "MountainSector":
-                    sectorManager.sectorText.text = "Boze Bergen";
+                    sectorManager.CurrentSector = "Boze Bergen";
                     break;
                 case "ForestHutSector":
-                    sectorManager.sectorText.text = "Wazige Woud";
+                    sectorManager.CurrentSector = "Wazige Woud";
                     break;
             }
         }

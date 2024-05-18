@@ -18,6 +18,7 @@ TagManager:
   - CollectibleWaterTower
   - CollectibleStarter
   - CollectibleForrestHut
+  - NPC
   layers:
   - Default
   - TransparentFX

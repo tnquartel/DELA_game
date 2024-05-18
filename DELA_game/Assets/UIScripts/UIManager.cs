@@ -25,7 +25,8 @@ public class UIManager : MonoBehaviour
         regionText.SetActive(false);
     }
 
-    public void ShowInGameUI() {
+    public void ShowInGameUI()
+    {
         HideAllPanels();
         collectibleCanvas.SetActive(true);
         regionText.SetActive(true);
@@ -68,6 +69,11 @@ public class UIManager : MonoBehaviour
 
     public void StartGame()
     {
+        if (playerNameInput.text == "")
+        {
+            playerNameInput.text = "speler";
+        }
+
         PlayerPrefs.SetString("PlayerName", playerNameInput.text);
         ShowHowInfoPanel();
     }
