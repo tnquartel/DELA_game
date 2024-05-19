@@ -29,7 +29,7 @@ public class CollectibleManager : MonoBehaviour
             {
                 case "Knusse Kampeerplaats":
                     collectiblesCollected = Responses.FindAll(response => response.CompareTag("CollectibleStarter")).Count;
-                    collectibleText.text = collectiblesCollected + "/1 Responses Collected";
+                    collectibleText.text = collectiblesCollected + "/1 Verzameld";
                     return;
                 case "Matige Meren":
                     collectiblesCollected = Responses.FindAll(response => response.CompareTag("CollectibleLake")).Count;
@@ -48,7 +48,7 @@ public class CollectibleManager : MonoBehaviour
                     break;
             }
 
-            collectibleText.text = collectiblesCollected + "/4 Responses Collected";
+            collectibleText.text = collectiblesCollected + "/4 Verzameld";
         }
 
     public List<Collectible> GetCollectible() {
