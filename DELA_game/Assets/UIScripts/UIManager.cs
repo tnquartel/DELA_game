@@ -11,6 +11,7 @@ public class UIManager : MonoBehaviour
     public GameObject endPanel;
     public GameObject collectibleCanvas;
     public GameObject regionText;
+    public GameObject instructionTextMove;
     public Text playerNameText;
 
     public InputField playerNameInput;
@@ -23,6 +24,7 @@ public class UIManager : MonoBehaviour
         endPanel.SetActive(false);
         collectibleCanvas.SetActive(false);
         regionText.SetActive(false);
+        instructionTextMove.SetActive(false);
     }
 
     public void ShowInGameUI()
@@ -30,6 +32,7 @@ public class UIManager : MonoBehaviour
         HideAllPanels();
         collectibleCanvas.SetActive(true);
         regionText.SetActive(true);
+        instructionTextMove.SetActive(true);
     }
 
     public void ShowStartPanel()
