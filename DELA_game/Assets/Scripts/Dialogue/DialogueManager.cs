@@ -100,10 +100,18 @@ public class DialogueManager : MonoBehaviour
 
     private void CheckResponse()
     {
-        if(currentSentence.answer == selectedResponse){
-        string currentSector = sectorManager.CurrentSector;
+        bool isCorrect = false;
 
-        switch (currentSector)
+        foreach(var sentence in currentSentence.answer) {
+            if(sentence == selectedResponse) {
+                isCorrect = true;
+            }
+        }
+
+        if(isCorrect) {
+            string currentSector = sectorManager.CurrentSector;
+
+            switch (currentSector)
             {
                 case "Matige Meren":
                     scoreManager.AddScore("NPCLake");
@@ -128,7 +136,7 @@ public class DialogueManager : MonoBehaviour
                 StartCoroutine(StopParticles(npc, "HappyParticles"));
             }
             
-            Debug.Log("Good!");
+            Debug.Log("Good!!");
         }
         else {
             foreach (GameObject npc in npcs)
@@ -137,7 +145,7 @@ public class DialogueManager : MonoBehaviour
                 StartCoroutine(StopParticles(npc, "SadParticles"));
             }
 
-            Debug.Log("Bad!");
+            Debug.Log("Bad!!");
         }
     }
 
@@ -147,9 +155,11 @@ public class DialogueManager : MonoBehaviour
         npc.transform.Find(particles).gameObject.SetActive(false);
     }
 
-    private void EndDialogue()
+    private async void EndDialogue()
     {
+        //Wait 3 seconds
         npcUIContainer.SetActive(false);
+        await Task.Delay(3000);
         FindObjectOfType<NPCInteractable>().StopInteraction();
         playerResponses = tempPlayerResponses;
     }

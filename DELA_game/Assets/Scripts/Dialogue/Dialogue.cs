@@ -7,7 +7,7 @@ public class DialogueSentence
 {
     [TextArea(3, 10)]
     public string sentence;
-    public Collectible answer;
+    public Collectible[] answer;
 }
 
 [System.Serializable]
