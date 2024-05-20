@@ -21,6 +21,7 @@ public class NPCInteractable : MonoBehaviour
     private Renderer playerRenderer;
     private PlayerInteract playerInteract;
     public Dialogue dialogue;
+    public ScoreManager scoreManager;
 
     void Start()
     {
@@ -33,7 +34,7 @@ public class NPCInteractable : MonoBehaviour
 
     public void Update()
     {
-        if(Input.GetKeyDown(KeyCode.E) && isInteracting && !isZooming)
+        if (Input.GetKeyDown(KeyCode.E) && isInteracting && !isZooming)
         {
             StopInteraction();
         }
@@ -41,7 +42,7 @@ public class NPCInteractable : MonoBehaviour
 
     public void Interact(GameObject npc)
     {
-        if(isZooming) return;
+        if (isZooming) return;
         ZoomOnNPC();
         TogglePlayerComponents(false);
         TriggerDialogue();
@@ -78,18 +79,24 @@ public class NPCInteractable : MonoBehaviour
     }
 
     private void UpdateInteractText()
-{
-    if (interactText != null)
-        interactText.text = GetInteractText();
-}
+    {
+        if (interactText != null)
+            interactText.text = GetInteractText();
+    }
 
     public string GetInteractText()
     {
-         return isInteracting ? "Stop Interacting" : "Interact";
+        return isInteracting ? "Stop Interacting" : "Interact";
     }
 
-    private void TriggerDialogue(){
-        if(dialogue.sentences.Length == 0) return;
+    private void TriggerDialogue()
+    {
+        if (dialogue.sentences.Length == 0) return;
         FindObjectOfType<DialogueManager>().StartDialogue(dialogue);
+    }
+
+    public int GetScore(string npcName)
+    {
+        return scoreManager.GetScore(npcName);
     }
 }
