@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 public class DialogueManager : MonoBehaviour
 {
-    private Queue<DialogueSentence> sentences; 
+    private Queue<DialogueSentence> sentences;
     public new TextMeshProUGUI name;
     public TextMeshProUGUI dialogueText;
     public GameObject npcUIContainer;
@@ -23,8 +23,9 @@ public class DialogueManager : MonoBehaviour
     private DialogueSentence currentSentence;
     private ScoreManager scoreManager;
     public SectorManager sectorManager;
-    public GameObject[] npcs; 
-    
+    public GameObject[] npcs;
+    public UIManager uiManager;
+
 
     void Start()
     {
@@ -43,7 +44,8 @@ public class DialogueManager : MonoBehaviour
         name.text = dialogue.name;
         sentences.Clear();
 
-        foreach(DialogueSentence senentece in dialogue.sentences){
+        foreach (DialogueSentence senentece in dialogue.sentences)
+        {
             sentences.Enqueue(senentece);
         }
 
@@ -52,7 +54,8 @@ public class DialogueManager : MonoBehaviour
 
     public void DisplayNextSentence()
     {
-        if(sentences.Count == 0){
+        if (sentences.Count == 0)
+        {
             EndDialogue();
             return;
         }
@@ -90,7 +93,7 @@ public class DialogueManager : MonoBehaviour
 
     public void OnResponseSelected()
     {
-        if(string.IsNullOrEmpty(playerResponseInputField.text)) return;
+        if (string.IsNullOrEmpty(playerResponseInputField.text)) return;
         tempPlayerResponses.Remove(selectedResponse);
         npcUIContainer.SetActive(true);
         playerUIContainer.SetActive(false);
@@ -102,13 +105,16 @@ public class DialogueManager : MonoBehaviour
     {
         bool isCorrect = false;
 
-        foreach(var sentence in currentSentence.answer) {
-            if(sentence == selectedResponse) {
+        foreach (var sentence in currentSentence.answer)
+        {
+            if (sentence == selectedResponse)
+            {
                 isCorrect = true;
             }
         }
 
-        if(isCorrect) {
+        if (isCorrect)
+        {
             string currentSector = sectorManager.CurrentSector;
 
             switch (currentSector)
@@ -135,10 +141,11 @@ public class DialogueManager : MonoBehaviour
                 npc.transform.Find("HappyParticles").gameObject.SetActive(true);
                 StartCoroutine(StopParticles(npc, "HappyParticles"));
             }
-            
+
             Debug.Log("Good!!");
         }
-        else {
+        else
+        {
             foreach (GameObject npc in npcs)
             {
                 npc.transform.Find("SadParticles").gameObject.SetActive(true);
@@ -162,6 +169,7 @@ public class DialogueManager : MonoBehaviour
         await Task.Delay(3000);
         FindObjectOfType<NPCInteractable>().StopInteraction();
         playerResponses = tempPlayerResponses;
+        uiManager.ShowWhyInfoPanel();
     }
 
     public void ActivateDialogueUI(bool activate)

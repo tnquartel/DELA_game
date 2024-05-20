@@ -19,6 +19,9 @@ public class UIManager : MonoBehaviour
     public InputField playerNameInput;
     public GameObject player;
 
+    [SerializeReference]
+    public List<NPCFeedbackManager> feedbackManagers;
+
     private bool isFading = false;
     private bool shouldMove;
     private bool shouldJump;
@@ -27,7 +30,6 @@ public class UIManager : MonoBehaviour
     {
         if (!isFading)
         {
-            Debug.Log(shouldMove);
             if (shouldMove && player.transform.position.x > 1 || shouldMove && player.transform.position.x < -1 || shouldMove && player.transform.position.z > -5 || shouldMove && player.transform.position.z < -7)
             {
                 shouldMove = false;
@@ -86,7 +88,7 @@ public class UIManager : MonoBehaviour
             instructionTextMove.color = new Color(originalColor.r, originalColor.g, originalColor.b, newAlpha);
             yield return null;
         }
-        isFading= false;
+        isFading = false;
         instructionTextMove.gameObject.SetActive(false);
         instructionTextJump.gameObject.SetActive(true);
         StartCoroutine(FadeInJumpText());
@@ -94,7 +96,6 @@ public class UIManager : MonoBehaviour
 
     private IEnumerator FadeInJumpText()
     {
-        Debug.Log("jump");
         isFading = true;
         Color originalColor = instructionTextJump.color;
         while (instructionTextJump.color.a < 1)
@@ -150,6 +151,13 @@ public class UIManager : MonoBehaviour
     {
         HideAllPanels();
         playerNameText.text = "Goed gedaan, " + PlayerPrefs.GetString("PlayerName") + "!";
+
+        foreach (NPCFeedbackManager feedbackManager in feedbackManagers)
+        {
+            int score = feedbackManager.npc.GetScore(feedbackManager.areaName);
+            feedbackManager.SetScore(score);
+        }
+
         endPanel.SetActive(true);
     }
 
@@ -167,11 +175,6 @@ public class UIManager : MonoBehaviour
 
         PlayerPrefs.SetString("PlayerName", playerNameInput.text);
         ShowHowInfoPanel();
-    }
-
-    public void PlayAgain()
-    {
-        ShowStartPanel();
     }
 
     public void StopGame()

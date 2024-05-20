@@ -27,7 +27,15 @@ public class ScoreManager : MonoBehaviour
     {
         if (npcScoreList.ContainsKey(npcName))
             npcScoreList[npcName]++;
-            
+
         Debug.Log(npcName + " score: " + npcScoreList[npcName]);
+    }
+
+    public int GetScore(string npcName)
+    {
+        if (npcScoreList.ContainsKey(npcName))
+            return npcScoreList[npcName];
+        else
+            return 0;
     }
 }
