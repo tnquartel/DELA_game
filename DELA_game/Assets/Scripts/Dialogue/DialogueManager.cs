@@ -161,12 +161,16 @@ public class DialogueManager : MonoBehaviour
         yield return new WaitForSeconds(3);
         npc.transform.Find(particles).gameObject.SetActive(false);
     }
+    private void EndDialogue()
+    {
+        StartCoroutine(EndDialogueCoroutine());
+    }
 
-    private async void EndDialogue()
+    private IEnumerator EndDialogueCoroutine()
     {
         //Wait 3 seconds
         npcUIContainer.SetActive(false);
-        await Task.Delay(3000);
+        yield return new WaitForSeconds(3);
         FindObjectOfType<NPCInteractable>().StopInteraction();
         playerResponses = tempPlayerResponses;
 
